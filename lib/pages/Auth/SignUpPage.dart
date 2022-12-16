@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fodee/Components/CustomButton.dart';
 import 'package:fodee/Components/OnFocusTap.dart';
-import 'package:fodee/pages/SignIn_SignUp/SignInPage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Fill_Bio.dart';
+import 'SignInPage.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -331,10 +332,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               12.verticalSpace,
               CustomButton(
-                onTap: () {
+                onTap: () async {
                   if (_isClick) {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (_) => FillBioPage()));
+                    SharedPreferences _store = await SharedPreferences.getInstance();
+                    _store.setString("email",_email.text);
+                    _store.setString("password",_password.text);
                   } else if (_email.text.isEmpty) {
                     emailEmpty = true;
                     setState(() {});

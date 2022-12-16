@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fodee/Components/CustomAppBar.dart';
 import 'package:fodee/Components/CustomButton.dart';
-import 'package:fodee/pages/HomePage.dart';
+import 'package:fodee/pages/Home/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Components/Congrats.dart';
+import '../../Components/Congrats.dart';
+import '../GeneralPage.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -384,7 +385,7 @@ class _UploadPageState extends State<UploadPage> {
                                   CongratsScreen(
 
                                     buttonTitle: 'Go homepage',
-                                    description: 'Your profile is ready to use', NavigatorPage: HomePage(),
+                                    description: 'Your profile is ready to use', NavigatorPage: GeneralPage(),
                                   )));
                         },
                         isActive: imagePath.isNotEmpty),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fodee/Components/CustomButton.dart';
-import 'package:fodee/pages/SignIn_SignUp/SignInPage.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'SignInPage.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);

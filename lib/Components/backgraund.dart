@@ -12,7 +12,7 @@ class BackgroundImage extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Image.asset("assets/image/backgraund.png"),
+          child: Image.asset("assets/image/backgraund.png",fit: BoxFit.cover,),
         ),
        child,
       ],

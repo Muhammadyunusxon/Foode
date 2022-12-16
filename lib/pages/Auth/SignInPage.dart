@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fodee/Components/CustomButton.dart';
 import 'package:fodee/Components/OnFocusTap.dart';
-import 'package:fodee/pages/HomePage.dart';
-import 'package:fodee/pages/SignIn_SignUp/SignUpPage.dart';
+import 'package:fodee/pages/Home/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../GeneralPage.dart';
+import 'SignUpPage.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -404,7 +406,7 @@ class _SignInPageState extends State<SignInPage> {
                 if (_isClick &&
                     password == passwordController.text &&
                     email == emailController.text) {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>HomePage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>GeneralPage()));
                 }
                 setState(() {
                 });

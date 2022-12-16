@@ -7,6 +7,7 @@ import 'package:fodee/Model/UserModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Payment_Method.dart';
 
@@ -55,7 +56,7 @@ class _FillBioPageState extends State<FillBioPage> {
               children: [
                 24.horizontalSpace,
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.pop(context);
                   },
                   child: Container(
@@ -123,8 +124,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -236,8 +237,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -349,8 +350,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -463,8 +464,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -508,7 +509,7 @@ class _FillBioPageState extends State<FillBioPage> {
                                 )
                                 .toList(),
                             onChanged: (newValue) {
-                              gender=newValue ?? " ";
+                              gender = newValue ?? " ";
                               fillController["gender"]?.text =
                                   newValue.toString() ?? "";
                               fillIsEmpty["gender"] = false;
@@ -576,8 +577,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -711,8 +712,8 @@ class _FillBioPageState extends State<FillBioPage> {
                                         text: "*",
                                         style: GoogleFonts.sourceSansPro(
                                           fontSize: 14.sp,
-                                          color:
-                                              Color(0xffDA1414).withOpacity(0.8),
+                                          color: Color(0xffDA1414)
+                                              .withOpacity(0.8),
                                         ))
                                   ]),
                             ),
@@ -765,12 +766,12 @@ class _FillBioPageState extends State<FillBioPage> {
                           ),
                           fillIsEmpty["address"] == true
                               ? Container(
-                                  margin: EdgeInsets.only(
-                                    top: 8,
-                                  ),
+                                  margin: EdgeInsets.only(top: 8),
                                   height: 33.h,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 6),
+                                    horizontal: 16,
+                                    vertical: 6,
+                                  ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.r),
                                     color: Color(0xffEBEEF2),
@@ -799,29 +800,43 @@ class _FillBioPageState extends State<FillBioPage> {
                     ),
                     20.verticalSpace,
                     CustomButton(
-                      onTap: () {
+                      onTap: () async {
                         if (!fillController.values
                             .map((e) => e.text.isNotEmpty)
                             .contains(false)) {
-                         Navigator.of(context).push(MaterialPageRoute(builder: (_)=>PaymentMethodPage()));
-                        } else if (fillController['fullName']!.text.isEmpty) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => PaymentMethodPage()));
+                          SharedPreferences _store =
+                              await SharedPreferences.getInstance();
+                          _store.setString(
+                              "fullName", fillController['fullName']!.text);
+                        }
+                        setState(() {});
+                      },
+                      onChange: () {
+                        if (fillController['fullName']!.text.isEmpty) {
                           fillIsEmpty['fullName'] = true;
                         } else if (fillController['nickName']!.text.isEmpty) {
                           fillIsEmpty['nickName'] = true;
-                        } else if (fillController['phoneNumber']!.text.isEmpty) {
+                        } else if (fillController['phoneNumber']!
+                            .text
+                            .isEmpty) {
                           fillIsEmpty['phoneNumber'] = true;
-                        }else if (fillController['gender']!.text.isEmpty) {
+                        } else if (fillController['gender']!.text.isEmpty) {
                           fillIsEmpty['gender'] = true;
-                        } else if (fillController['dateOfBirth']!.text.isEmpty) {
+                        } else if (fillController['dateOfBirth']!
+                            .text
+                            .isEmpty) {
                           fillIsEmpty['dateOfBirth'] = true;
-                        }else if (fillController['address']!.text.isEmpty) {
+                        } else if (fillController['address']!.text.isEmpty) {
                           fillIsEmpty['address'] = true;
                         }
                         setState(() {});
-                      }, title: 'Next', isActive: !fillController.values
-                        .map((e) => e.text.isNotEmpty)
-                        .contains(false),
-
+                      },
+                      title: 'Next',
+                      isActive: !fillController.values
+                          .map((e) => e.text.isNotEmpty)
+                          .contains(false),
                     ),
                   ],
                 ),
