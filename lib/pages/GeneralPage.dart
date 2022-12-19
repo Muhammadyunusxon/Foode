@@ -30,17 +30,19 @@ class _GeneralPageState extends State<GeneralPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: listOfPage[_currentIndex],
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
           child: BottomNavyBar(
+            backgroundColor: Colors.white.withOpacity(0.99),
             selectedIndex: _currentIndex,
             showElevation: true,
             itemCornerRadius: 12,
-            curve: Curves.easeOutCirc,
+            curve: Curves.easeInExpo,
             onItemSelected: (index) => setState(() => _currentIndex = index),
             items: [
               for (int i = 0; i < listOfBottom.length; i++)

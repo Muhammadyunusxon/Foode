@@ -1,13 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fodee/Components/CustomButton.dart';
 import 'package:fodee/Components/OnFocusTap.dart';
 import 'package:fodee/Model/UserModel.dart';
+import 'package:fodee/store/local_store.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Payment_Method.dart';
 
@@ -511,7 +511,7 @@ class _FillBioPageState extends State<FillBioPage> {
                             onChanged: (newValue) {
                               gender = newValue ?? " ";
                               fillController["gender"]?.text =
-                                  newValue.toString() ?? "";
+                                  newValue.toString();
                               fillIsEmpty["gender"] = false;
                               setState(() {});
                             },
@@ -592,7 +592,7 @@ class _FillBioPageState extends State<FillBioPage> {
                                 firstDate: DateTime.now()
                                     .subtract(Duration(days: 365 * 5)),
                                 lastDate:
-                                    DateTime.now().add(Duration(days: 365 * 5)),
+                                    DateTime.now().add(Duration(days: 365 * 3)),
                               ).then(
                                 (value) => fillController["dateOfBirth"]!.text =
                                     DateFormat("MMMM dd,yyyy")
@@ -806,10 +806,22 @@ class _FillBioPageState extends State<FillBioPage> {
                             .contains(false)) {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) => PaymentMethodPage()));
-                          SharedPreferences _store =
-                              await SharedPreferences.getInstance();
-                          _store.setString(
-                              "fullName", fillController['fullName']!.text);
+                          LocalStore local = LocalStore();
+                          UserModel newUser = await local.getUser();
+
+                          UserModel user = UserModel(
+                            fullName: fillController['fullName']!.text,
+                            nickName: fillController['nickName']!.text,
+                            phoneNumber: fillController['phoneNumber']!.text,
+                            dateOfBirth: fillController['dateOfBirth']!.text,
+                            address: fillController['address']!.text,
+                            gender: fillController['gender']!.text,
+                            image: '',
+                            email: newUser.email,
+                            password: newUser.password,
+                          );
+
+                          local.setUser(user);
                         }
                         setState(() {});
                       },

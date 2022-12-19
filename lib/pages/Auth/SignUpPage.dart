@@ -5,6 +5,8 @@ import 'package:fodee/Components/OnFocusTap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Model/UserModel.dart';
+import '../../store/local_store.dart';
 import 'Fill_Bio.dart';
 import 'SignInPage.dart';
 
@@ -135,34 +137,34 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     emailEmpty
                         ? Container(
-                            margin: EdgeInsets.only(
-                              top: 8,
-                            ),
-                            height: 33.h,
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: Color(0xffEBEEF2),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.error,
-                                  size: 18.sp,
-                                  color: Color(0xff394452),
-                                ),
-                                4.horizontalSpace,
-                                Text(
-                                  "This is a message",
-                                  style: GoogleFonts.sourceSansPro(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                      margin: EdgeInsets.only(
+                        top: 8,
+                      ),
+                      height: 33.h,
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: Color(0xffEBEEF2),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.error,
+                            size: 18.sp,
+                            color: Color(0xff394452),
+                          ),
+                          4.horizontalSpace,
+                          Text(
+                            "This is a message",
+                            style: GoogleFonts.sourceSansPro(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           )
+                        ],
+                      ),
+                    )
                         : SizedBox.shrink(),
                   ],
                 ),
@@ -227,7 +229,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             setState(() {});
                           },
                           child: Icon(
-                            !_isHidden ? Icons.visibility : Icons.visibility_off,
+                            !_isHidden ? Icons.visibility : Icons
+                                .visibility_off,
                             color: Color(0xff858C94),
                           ),
                         ),
@@ -265,34 +268,34 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     passwordEmpty
                         ? Container(
-                            margin: EdgeInsets.only(
-                              top: 8,
-                            ),
-                            height: 33.h,
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: Color(0xffEBEEF2),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.error,
-                                  size: 18.sp,
-                                  color: Color(0xff394452),
-                                ),
-                                4.horizontalSpace,
-                                Text(
-                                  "This is a message",
-                                  style: GoogleFonts.sourceSansPro(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                      margin: EdgeInsets.only(
+                        top: 8,
+                      ),
+                      height: 33.h,
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: Color(0xffEBEEF2),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.error,
+                            size: 18.sp,
+                            color: Color(0xff394452),
+                          ),
+                          4.horizontalSpace,
+                          Text(
+                            "This is a message",
+                            style: GoogleFonts.sourceSansPro(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           )
+                        ],
+                      ),
+                    )
                         : SizedBox.shrink(),
                   ],
                 ),
@@ -333,13 +336,26 @@ class _SignUpPageState extends State<SignUpPage> {
               12.verticalSpace,
               CustomButton(
                 onTap: () async {
-                  if (_isClick) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => FillBioPage()));
-                    SharedPreferences _store = await SharedPreferences.getInstance();
-                    _store.setString("email",_email.text);
-                    _store.setString("password",_password.text);
-                  } else if (_email.text.isEmpty) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => FillBioPage()));
+
+                  LocalStore local = LocalStore();
+                  UserModel user = UserModel(fullName: '',
+                    nickName: "",
+                    phoneNumber: "",
+                    dateOfBirth: "",
+                    address: "",
+                    gender: "",
+                    image: "",
+                    email: _email.text,
+                    password: _password.text,);
+                  local.setUser(user);
+                  setState(() {
+                  });
+                },
+
+                onChange: () {
+                  if (_email.text.isEmpty) {
                     emailEmpty = true;
                     setState(() {});
                   } else if (_password.text.isEmpty) {
@@ -347,9 +363,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     setState(() {});
                   } else {
                     _isClick = false;
-                    setState(() {});
+
                   }
-                }, title: 'Sign Up', isActive: _isClick,
+                  setState(() {});
+                },
+                title: 'Sign Up', isActive: _isClick,
               ),
               32.verticalSpace,
               Text(
@@ -400,7 +418,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             height: 25.h,
                             width: 25.w,
                             child:
-                                Image.asset("assets/image/social/facebook.png"),
+                            Image.asset("assets/image/social/facebook.png"),
                           ),
                           12.horizontalSpace,
                           Text(
@@ -449,7 +467,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             height: 25.h,
                             width: 25.w,
-                            child: Image.asset("assets/image/social/google.png"),
+                            child: Image.asset(
+                                "assets/image/social/google.png"),
                           ),
                           12.horizontalSpace,
                           Text(

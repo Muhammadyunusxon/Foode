@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,9 +11,9 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton(
       {Key? key,
-      required this.title,
-      required this.onTap,
-      required this.isActive, this.onChange})
+        required this.title,
+        required this.onTap,
+        required this.isActive, this.onChange})
       : super(key: key);
 
   @override
@@ -27,18 +28,18 @@ class CustomButton extends StatelessWidget {
         }
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.symmetric(vertical: 14.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32.r),
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: isActive
-                  ? [Color(0xffFF7E95), Color(0xffFF1843)]
+                  ? [ Color(0xffFF7E95),  Color(0xffFF1843)]
                   : [
-                      Color(0xffF43F5E).withOpacity(0.5),
-                      Color(0xffF43F5E).withOpacity(0.5)
-                    ]),
+                 Color(0xffF43F5E).withOpacity(0.5),
+                 Color(0xffF43F5E).withOpacity(0.5)
+              ]),
         ),
         child: Center(
           child: Text(

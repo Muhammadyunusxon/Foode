@@ -10,6 +10,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../Components/Congrats.dart';
+import '../../Model/UserModel.dart';
+import '../../store/local_store.dart';
 import '../GeneralPage.dart';
 
 class UploadPage extends StatefulWidget {
@@ -47,130 +49,130 @@ class _UploadPageState extends State<UploadPage> {
                     24.verticalSpace,
                     imagePath.isEmpty
                         ? Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            _image
-                                .pickImage(source: ImageSource.camera)
-                                .then((value) async {
-                              if (value != null) {
-                                CroppedFile? cropperImage =
-                                await ImageCropper().cropImage(
-                                    sourcePath: value.path);
-                                imagePath = cropperImage?.path ?? "";
-                                setState(() {});
-                              }
-                            });
-                            setState(() {});
-                          },
-                          child: Container(
-                            height: 160.h,
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(vertical: 23.h),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Color(0xffEBEEF2),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(12, 26),
-                                  blurRadius: 50,
-                                  color:
-                                  Color(0xff5A6CEA).withOpacity(0.08),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                    height: 80.h,
-                                    width: 80.h,
-                                    padding: EdgeInsets.all(24),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color(0xffF43F5E)
-                                          .withOpacity(0.1),
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  _image
+                                      .pickImage(source: ImageSource.camera)
+                                      .then((value) async {
+                                    if (value != null) {
+                                      CroppedFile? cropperImage =
+                                          await ImageCropper().cropImage(
+                                              sourcePath: value.path);
+                                      imagePath = cropperImage?.path ?? "";
+                                      setState(() {});
+                                    }
+                                  });
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  height: 160.h,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(vertical: 23.h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Color(0xffEBEEF2),
                                     ),
-                                    child: Image.asset(
-                                        "assets/image/camera alt.png")),
-                                Text(
-                                  "Take photo",
-                                  style: GoogleFonts.sourceSansPro(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Color(0xff09101D),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(12, 26),
+                                        blurRadius: 50,
+                                        color:
+                                            Color(0xff5A6CEA).withOpacity(0.08),
+                                      ),
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        24.verticalSpace,
-                        GestureDetector(
-                          onTap: () async {
-                            _image
-                                .pickImage(source: ImageSource.gallery)
-                                .then((value) async {
-                              if (value != null) {
-                                CroppedFile? cropperImage =
-                                await ImageCropper().cropImage(
-                                    sourcePath: value.path);
-                                imagePath = cropperImage?.path ?? "";
-                                setState(() {});
-                              }
-                            });
-                            setState(() {});
-                          },
-                          child: Container(
-                            height: 160.h,
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(vertical: 23.h),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Color(0xffEBEEF2),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(12, 26),
-                                  blurRadius: 50,
-                                  color:
-                                  Color(0xff5A6CEA).withOpacity(0.08),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          height: 80.h,
+                                          width: 80.h,
+                                          padding: EdgeInsets.all(24),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color(0xffF43F5E)
+                                                .withOpacity(0.1),
+                                          ),
+                                          child: Image.asset(
+                                              "assets/image/camera alt.png")),
+                                      Text(
+                                        "Take photo",
+                                        style: GoogleFonts.sourceSansPro(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff09101D),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                    height: 80.h,
-                                    width: 80.h,
-                                    padding: EdgeInsets.all(24),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color(0xffF43F5E)
-                                          .withOpacity(0.1),
+                              ),
+                              24.verticalSpace,
+                              GestureDetector(
+                                onTap: () async {
+                                  _image
+                                      .pickImage(source: ImageSource.gallery)
+                                      .then((value) async {
+                                    if (value != null) {
+                                      CroppedFile? cropperImage =
+                                          await ImageCropper().cropImage(
+                                              sourcePath: value.path);
+                                      imagePath = cropperImage?.path ?? "";
+                                      setState(() {});
+                                    }
+                                  });
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  height: 160.h,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(vertical: 23.h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Color(0xffEBEEF2),
                                     ),
-                                    child: Image.asset(
-                                        "assets/image/folder.png")),
-                                Text(
-                                  "From gallery",
-                                  style: GoogleFonts.sourceSansPro(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Color(0xff09101D),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(12, 26),
+                                        blurRadius: 50,
+                                        color:
+                                            Color(0xff5A6CEA).withOpacity(0.08),
+                                      ),
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          height: 80.h,
+                                          width: 80.h,
+                                          padding: EdgeInsets.all(24),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color(0xffF43F5E)
+                                                .withOpacity(0.1),
+                                          ),
+                                          child: Image.asset(
+                                              "assets/image/folder.png")),
+                                      Text(
+                                        "From gallery",
+                                        style: GoogleFonts.sourceSansPro(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff09101D),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         : SizedBox.shrink(),
                     if (imagePath.isEmpty)
                       SizedBox.shrink()
@@ -205,29 +207,29 @@ class _UploadPageState extends State<UploadPage> {
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                                CrossAxisAlignment.end,
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   GestureDetector(
                                                     onTap: () async {
                                                       _image
                                                           .pickImage(
-                                                          source:
-                                                          ImageSource
-                                                              .camera)
+                                                              source:
+                                                                  ImageSource
+                                                                      .camera)
                                                           .then((value) async {
                                                         if (value != null) {
                                                           CroppedFile?
-                                                          _cropperImage =
-                                                          await ImageCropper()
-                                                              .cropImage(
-                                                              sourcePath:
-                                                              value
-                                                                  .path);
+                                                              _cropperImage =
+                                                              await ImageCropper()
+                                                                  .cropImage(
+                                                                      sourcePath:
+                                                                          value
+                                                                              .path);
                                                           if (_cropperImage !=
                                                               null) {
                                                             imagePath =
@@ -244,13 +246,13 @@ class _UploadPageState extends State<UploadPage> {
                                                         height: 65.r,
                                                         width: 65.r,
                                                         padding:
-                                                        EdgeInsets.all(14),
+                                                            EdgeInsets.all(14),
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           shape:
-                                                          BoxShape.circle,
+                                                              BoxShape.circle,
                                                           color: Color(
-                                                              0xffF43F5E)
+                                                                  0xffF43F5E)
                                                               .withOpacity(0.1),
                                                         ),
                                                         child: Image.asset(
@@ -260,18 +262,18 @@ class _UploadPageState extends State<UploadPage> {
                                                     onTap: () async {
                                                       _image
                                                           .pickImage(
-                                                          source:
-                                                          ImageSource
-                                                              .gallery)
+                                                              source:
+                                                                  ImageSource
+                                                                      .gallery)
                                                           .then((value) async {
                                                         if (value != null) {
                                                           CroppedFile?
-                                                          _cropperImage =
-                                                          await ImageCropper()
-                                                              .cropImage(
-                                                              sourcePath:
-                                                              value
-                                                                  .path);
+                                                              _cropperImage =
+                                                              await ImageCropper()
+                                                                  .cropImage(
+                                                                      sourcePath:
+                                                                          value
+                                                                              .path);
                                                           if (_cropperImage !=
                                                               null) {
                                                             imagePath =
@@ -288,13 +290,13 @@ class _UploadPageState extends State<UploadPage> {
                                                         height: 65.r,
                                                         width: 65.r,
                                                         padding:
-                                                        EdgeInsets.all(14),
+                                                            EdgeInsets.all(14),
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           shape:
-                                                          BoxShape.circle,
+                                                              BoxShape.circle,
                                                           color: Color(
-                                                              0xffF43F5E)
+                                                                  0xffF43F5E)
                                                               .withOpacity(0.1),
                                                         ),
                                                         child: Image.asset(
@@ -310,19 +312,19 @@ class _UploadPageState extends State<UploadPage> {
                                                         height: 65.r,
                                                         width: 65.r,
                                                         padding:
-                                                        EdgeInsets.all(14),
+                                                            EdgeInsets.all(14),
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           shape:
-                                                          BoxShape.circle,
+                                                              BoxShape.circle,
                                                           color: Color(
-                                                              0xffF43F5E)
+                                                                  0xffF43F5E)
                                                               .withOpacity(0.1),
                                                         ),
                                                         child: Icon(
                                                           Icons.delete,
                                                           color:
-                                                          Color(0xffF43F5E),
+                                                              Color(0xffF43F5E),
                                                         )),
                                                   ),
                                                 ],
@@ -338,8 +340,8 @@ class _UploadPageState extends State<UploadPage> {
                                                       horizontal: 18),
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                        12),
+                                                        BorderRadius.circular(
+                                                            12),
                                                     color: Color(0xffF43F5E)
                                                         .withOpacity(0.1),
                                                   ),
@@ -349,7 +351,7 @@ class _UploadPageState extends State<UploadPage> {
                                                         .sourceSansPro(
                                                       fontSize: 16,
                                                       fontWeight:
-                                                      FontWeight.w600,
+                                                          FontWeight.w600,
                                                       color: Color(0xffF43F5E),
                                                     ),
                                                   ),
@@ -379,15 +381,38 @@ class _UploadPageState extends State<UploadPage> {
                     Spacer(),
                     CustomButton(
                         title: "Next",
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) =>
-                                  CongratsScreen(
+                        onTap: () async {
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (_) => CongratsScreen(
+                                      buttonTitle: 'Go homepage',
+                                      description:
+                                          'Your profile is ready to use',
+                                      NavigatorPage: GeneralPage(),
+                                    )),
+                            (s) {
+                              return false;
+                            },
+                          );
+                          LocalStore local = LocalStore();
+                          UserModel newUser = await local.getUser();
 
-                                    buttonTitle: 'Go homepage',
-                                    description: 'Your profile is ready to use', NavigatorPage: GeneralPage(),
-                                  )));
+                          UserModel user = UserModel(
+                            fullName: newUser.fullName,
+                            nickName: newUser.nickName,
+                            phoneNumber: newUser.phoneNumber,
+                            dateOfBirth: newUser.dateOfBirth,
+                            address: newUser.address,
+                            gender: newUser.gender,
+                            image: imagePath,
+                            email: newUser.email,
+                            password: newUser.password,
+                          );
+
+                          local.setUser(user);
                         },
+
+
                         isActive: imagePath.isNotEmpty),
                     24.verticalSpace,
                   ],

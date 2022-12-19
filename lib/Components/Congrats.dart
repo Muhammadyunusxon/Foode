@@ -62,7 +62,9 @@ class CongratsScreen extends StatelessWidget {
                     title: buttonTitle,
                     isActive: true,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>NavigatorPage));
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=>NavigatorPage),(s){
+                        return false;
+                      });
                     },
                   ),
                 ),
